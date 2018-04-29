@@ -56,8 +56,9 @@ center UNIVERSITY TIME TABLE
             td(align='center') SATURDAY
         tr
             td(align='center') SUNDAY
-    button1(formaction="/menu" onclick="/menu" align='center') Back
-    button2(onclick='myFunction()' align='center') Try it
+    form        
+        button#button1(type='submit' formaction="/menu" align='center') Return
+        button#button2(onclick='myFunction()' align='center') Try it
 script.
     function myFunction() {
         var table = document.getElementById("myTable");

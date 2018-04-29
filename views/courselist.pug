@@ -1,5 +1,5 @@
 head
-  title  nigg r u ded 
+  title= title
   link(rel='stylesheet' type='text/css' href='/stylesheets/style4.css')
 .login-box
   h1 Course Management
@@ -15,14 +15,15 @@ head
         td test2
         td test3
         td test4
-    button2#myButton(onclick='myFunction();disableMe()') Try it
-    button1(onclick="/menu" position='absolute') Return to Menu
+    form    
+        button#button2(onclick='myFunction();disableMe()') Try it
+        button#button1(type='submit' formaction='/menu' position='absolute') Return
 script.
     var clicked = false;
         function disableMe() {
         if (document.getElementById) {
             if (!clicked) {
-                document.getElementById("myButton").value = "thank you";
+                document.getElementById("button2").value = "thank you";
                 clicked = true;
                 return true;
             } else {

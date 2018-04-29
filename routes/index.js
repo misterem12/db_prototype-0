@@ -17,75 +17,117 @@ router.get('/', function (req, res, next) {
   res.render('login', { warning: req.cookies.warning });
 });
 
-router.get('/schedule', function (req, res, next) {
-  res.render('schedule', {
-    mon: [["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ1"]
-      , ["BABAB", "Volvo55", "Saab55", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ2"]
-      , ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ3"]
-      , ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ4"]]
-  });
-});
-
-router.get('/course', function (req, res, next) {
-  res.render('courselist', {});
-});
+// router.post('/menu', function (req, res, next) {
+//   // if (req.cookies.sid != undefined) next();
+//   // if(req.body.submit == undefined) next();
+//   console.log('logging in')
+//   console.log(req.body)
+//   var sid = req.body.sid
+//   var pass = req.body.pass
+//   console.log(sid)
+//   console.log(pass)
+//   if (sid == null || pass == null) {
+//     res.cookie('warning', "Please Fill Your Student ID/Password")
+//     console.log(req.cookies.warning)
+//     res.redirect('/')
+//   }
+//   else if (sid.length != 10) {
+//     // console.log(sid)
+//     res.cookie('warning', "Invalid Student ID/Password")
+//     console.log(req.cookies.warning)
+//     res.redirect('/')
+//   }
+//   else {
+//     console.log("valid sid")
+//     db.query(
+//       'SELECT JSON_OBJECT("sid", StudentID, "pass", Password ) AS s FROM password WHERE StudentID = ?', [sid],
+//       function (error, results, fields) {
+//         if (error) return { error: error };
+//         else {
+//           console.log(JSON.parse(results[0]['s']).pass,pass,JSON.parse(results[0]['s']).pass == pass)
+//           if (JSON.parse(results[0]['s']).pass != pass) {
+//             res.cookie('warning', "Invalid Student ID/Password")
+//             console.log(req.cookies.warning)
+//             res.redirect('/')
+//           }
+//         }
+//       }
+//     )
+//     console.log("pw valid")
+//     res.cookie('sid', sid)
+//     console.log(req.cookies.sid)
+//     next()
+//   }
+// });
 
 router.post('/menu', function (req, res, next) {
-  // if (req.cookies.sid != undefined) next();
-  if(req.body.submit == undefined) next();
-  console.log('logging in')
-  console.log(req.body)
-  var sid = req.body.sid
-  var pass = req.body.pass
-  console.log(sid)
-  console.log(pass)
-  if (sid == null || pass == null) {
-    res.cookie('warning', "Please Fill Your Student ID/Password")
+
+  // var sid
+
+    console.log('logging in')
+    console.log(req.body)
+    var sid = req.body.sid
+    var pass = req.body.pass
+    console.log(sid, pass)
+    if (sid.length == 0 || pass.length == 0 || sid == null || pass == null) {
+      res.cookie('warning', "Please Fill Your Student ID/Password")
+      console.log(req.cookies.warning)
+      res.redirect('/')
+    }
+    else if (sid.length != 10) {
+      // console.log(sid)
+      res.cookie('warning', "Invalid Student ID/Password")
+      console.log(req.cookies.warning)
+      res.redirect('/')
+    }
+    else {
+      console.log("valid sid")
+      db.query(
+        'SELECT JSON_OBJECT("sid", StudentID, "pass", Password ) AS s FROM password WHERE StudentID = ?', [sid],
+        function (error, results, fields) {
+          if (error) return { error: error };
+          else {
+            console.log(JSON.parse(results[0]['s']).pass,pass,JSON.parse(results[0]['s']).pass == pass)
+            if (JSON.parse(results[0]['s']).pass != pass) {
+              res.cookie('warning', "Invalid Student ID/Password")
+              console.log(req.cookies.warning)
+              res.redirect('/')
+            }
+          }
+        }
+      )
+      console.log("pw valid")
+      res.cookie('sid', sid)
+      console.log(req.cookies)
+      next()
+    }
+});
+
+router.use('/menu', function(req,res,next){
+  console.log('login')
+  var sid
+  if(req.method == 'POST') sid = req.body.sid
+  else sid = req.cookies.sid
+  console.log("current sid id", sid)
+  if(sid == undefined){
+    res.cookie('warning', "Please Login First")
     console.log(req.cookies.warning)
     res.redirect('/')
   }
-  else if (sid.length != 10) {
-    // console.log(sid)
-    res.cookie('warning', "Invalid Student ID/Password")
-    console.log(req.cookies.warning)
-    res.redirect('/')
-  }
-  else {
-    console.log("valid sid")
+  else{
     db.query(
-      'SELECT JSON_OBJECT("sid", StudentID, "pass", Password ) AS s FROM password WHERE StudentID = ?', [sid],
+      'SELECT JSON_OBJECT("sid", StudentID, "fname", Fname, "lname", Lname, "degree", Degree, "enroll", EnrollDate ) AS s FROM student WHERE StudentID = ?', [sid],
       function (error, results, fields) {
         if (error) return { error: error };
         else {
-          if (JSON.parse(results[0]['s']).pass != pass) {
-            res.cookie('warning', "Invalid Student ID/Password")
-            console.log(req.cookies.warning)
-            res.redirect('/')
-          }
+          console.log(results[0])        
+          console.log(results[0]['s'])
+          res.render('menu', { s: JSON.parse(results[0]['s']) })
+          console.log('complete')
         }
-      }
-    )
-    console.log("pw valid")
-    res.cookie('sid', sid)
-    console.log(req.cookies.sid)
-    next()
-  }
-});
-
-router.use('/menu', function (req, res, next) {
-  console.log('login')
-  var sid = req.cookies.sid
-  db.query(
-    'SELECT JSON_OBJECT("sid", StudentID, "fname", Fname, "lname", Lname, "degree", Degree, "enroll", EnrollDate ) AS s FROM student WHERE StudentID = ?', [sid],
-    function (error, results, fields) {
-      if (error) return { error: error };
-      else {
-        console.log(results[0]['s'])
-        res.render('menu', { s: JSON.parse(results[0]['s']) })
-        console.log('complete')
-      }
-    })
-});
+      })
+  }  
+})
 
 
 router.get('/payment', function (req, res, next) {
@@ -106,5 +148,18 @@ router.get('/payment', function (req, res, next) {
   )
 });
 
+router.get('/course', function (req, res, next) {
+  res.render('schedule', {
+    mon: [["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ1"]
+      , ["BABAB", "Volvo55", "Saab55", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ2"]
+      , ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ3"]
+      , ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ4"]]
+  });
+});
+
+router.get('/reg', function (req, res, next) {
+  var sid = req.cookies.sid
+  res.render('courselist', {titel: 'Registration'});
+});
 
 module.exports = router;
