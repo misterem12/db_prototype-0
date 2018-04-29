@@ -7,13 +7,12 @@ body{
 }
 .login-box{
     width: 1080px;
-    height: 720px;
+    height: auto;
     background: rgba(0, 0, 0, 0.5);
     color: #fff;
-    top: 50%;
     left: 50%;
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,0);
     box-sizing: border-box;
     padding: 40px 50px;
 }
@@ -46,13 +45,13 @@ h1{
     font-weight: bold;
 }
 
-td
+tr
 {
 	background: rgba(0, 0, 0, 0);
 	margin: 0;
     padding: 0 0 20px;
     text-align: center;
-    font-size: 18px;
+    font-size: 14px;
 	
 }
 .wrapper {
@@ -81,13 +80,10 @@ td
 }
 #button2
 {
-	position: fixed;
-	top: 70px;
-	left: 10px;
-	width: 20%;
     border: none;
     outline: none;
     height: 40px;
+    width: auto;
     background: #1c8adb;
     color: #fff;
     font-size: 18px;

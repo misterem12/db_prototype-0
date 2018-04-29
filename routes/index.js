@@ -149,17 +149,46 @@ router.get('/payment', function (req, res, next) {
 });
 
 router.get('/course', function (req, res, next) {
-  res.render('schedule', {
-    mon: [["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ1"]
-      , ["BABAB", "Volvo55", "Saab55", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ2"]
-      , ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ3"]
-      , ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi", "Data", "Tada", "EZ4"]]
-  });
+  console.log('checking registered courses')
+  var sid = req.cookies.sid
+  var query = "SELECT JSON_OBJECT('cid', CourseID, 'name', Name, 'des', Description, 'crd', Credits, 'sec', SectionNo, 'teacher', Teacher, 'room' , RoomNo, 'build', Building, 'time', Timeslot ) AS c FROM RegList r WHERE r.StudentID = ? ORDER BY CourseID ;"
+  var courses = []; 
+  console.log('querying')
+  db.query(query,[sid],function (error, results, fields) {
+    if (error) return { error: error };
+    else {
+      // results = JSON.parse(results['pay'])
+      console.log('processing DB')
+      for( row in results ){
+        //console.log('row =',row)
+        courses.push(JSON.parse(results[row]['c']))
+        //console.log('pushed')
+      }
+      console.log("the courses is",courses)
+      res.render('courselist-w', {title: 'Registered Courses', courses: courses });
+    }
+  })
 });
 
 router.get('/reg', function (req, res, next) {
   var sid = req.cookies.sid
-  res.render('courselist', {titel: 'Registration'});
+  //c.CourseID, c.Name, c.Description, c.Credits, c.Prerequisite, s.SectionNo, s.AvailableSeats, s.Teacher, s.RoomNo, s.Building
+  // var query = "SELECT CONCAT( '[', GROUP_CONCAT(JSON_OBJECT('cid', CourseID, 'name', Name, 'des', Description, 'crd', Credits, 'pre', Prerequisite, 'sec', SectionNo, 'seats', AvailableSeats,'teacher', Teacher, 'room' , RoomNo, 'build', Building )), ']') AS c FROM CourseList"
+  var query = "SELECT JSON_OBJECT('cid', CourseID, 'name', Name, 'des', Description, 'crd', Credits, 'pre', Prerequisite, 'sec', SectionNo, 'seats', AvailableSeats,'teacher', Teacher, 'room' , RoomNo, 'build', Building, 'time', Timeslot ) AS c FROM CourseList ORDER BY CourseID;"
+  var courses = []; 
+  db.query(query,function (error, results, fields) {
+    if (error) return { error: error };
+    else {
+      // results = JSON.parse(results['pay'])
+      for( row in results ){
+        //console.log('row =',row)
+        courses.push(JSON.parse(results[row]['c']))
+        //console.log('pushed')
+      }
+      console.log("the courses is",courses)
+      res.render('courselist', {title: 'Available Courses', courses: courses });
+    }
+  })
 });
 
 module.exports = router;
