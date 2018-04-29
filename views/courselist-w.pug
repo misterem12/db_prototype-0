@@ -1,0 +1,72 @@
+head
+    title= title
+    link(rel='stylesheet' type='text/css' href='/stylesheets/style4.css')
+    
+.login-box
+  h1 Course List
+  .wrapper
+    table#myTable.demotbl(align='center')
+      tr(style='font-size: 18px')
+        th Course 
+        th Section
+        th Teacher
+        th Time
+        th Location
+        th &nbsp
+      each course in courses
+        tr
+            th #{course.cid} #{course.name}
+            th #{course.sec}
+            th #{course.teacher}
+            th #{course.time}
+            th #{course.room} #{course.build}
+            th( style='padding: 5px; vertical-align: center;') 
+                form(action='./menu')
+                    input(type='hidden' name ='course' value=course.cid)
+                    input(type='hidden' name ='section' value=course.sec)
+                    button#button2(type='submit' name='act' value='w') Withdraw
+                    //- button#button2(type='submit' name='sec' value=JSON.stringify('{course:${ course.cid },section:${ course.sec }')) Add
+                    
+    form    
+        //- button#button2(onclick='myFunction();disableMe()') Try it
+        button#button1(type='submit' formaction='/menu' position='absolute') Return
+
+script.
+    function func(cid,sec){
+        alert('parameter =', JSON.stringify('{course: ${cid} ,section: ${sec} }'))
+        return JSON.stringify('{course: ${cid} ,section: ${sec} }')
+    }
+
+//- script.
+//-     var clicked = false;
+//-         function disableMe() {
+//-         if (document.getElementById) {
+//-             if (!clicked) {
+//-                 document.getElementById("button2").value = "thank you";
+//-                 clicked = true;
+//-                 return true;
+//-             } else {
+//-                 return false;
+//-             } else {
+//-                 return true;
+//-             }
+//-         }
+//-     }
+//-     function myFunction() {
+//-         var table = document.getElementById("myTable");
+//-         // var row = table.insertRow(1);
+//-         var cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi","Data","Tada"];//moomoo insert data here555555555555555555555
+//-         for(var j =1 ; j<10; j++){
+//-             var row=table.insertRow(j);
+//-         for(var i=0 ; i<4;i++){
+//-             var cell= row.insertCell(i);
+//-             cell.innerHTML=cars[i];
+//-         }
+//-         cars.reverse();
+//-         cars.pop();
+//-         cars.pop();
+//-         cars.pop();
+//-         cars.pop();
+//-         cars.reverse();
+//-         }
+//-     }
