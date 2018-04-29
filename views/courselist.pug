@@ -1,0 +1,52 @@
+head
+  title  nigg r u ded 
+  link(rel='stylesheet' type='text/css' href='/stylesheets/style4.css')
+.login-box
+  h1 Course Management
+  .wrapper
+    table#myTable.demotbl(align='center')
+      tr
+        th Course ID
+        th Section
+        th Teacher
+        th Location
+      tr
+        td test1
+        td test2
+        td test3
+        td test4
+    button2#myButton(onclick='myFunction();disableMe()') Try it
+    button1(onclick="/menu" position='absolute') Return to Menu
+script.
+    var clicked = false;
+        function disableMe() {
+        if (document.getElementById) {
+            if (!clicked) {
+                document.getElementById("myButton").value = "thank you";
+                clicked = true;
+                return true;
+            } else {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+    function myFunction() {
+        var table = document.getElementById("myTable");
+        // var row = table.insertRow(1);
+        var cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi","Data","Tada"];//moomoo insert data here555555555555555555555
+        for(var j =1 ; j<10; j++){
+            var row=table.insertRow(j);
+        for(var i=0 ; i<4;i++){
+            var cell= row.insertCell(i);
+            cell.innerHTML=cars[i];
+        }
+        cars.reverse();
+        cars.pop();
+        cars.pop();
+        cars.pop();
+        cars.pop();
+        cars.reverse();
+        }
+    }

@@ -1,0 +1,88 @@
+head
+  title  Schedule
+  link(rel='stylesheet' type='text/css' href='/stylesheets/style5.css')
+center UNIVERSITY TIME TABLE
+.login-box
+    table#myTable(border='2' cellspacing='3' align='right')
+        tbody
+        tr
+            td(align='center') &nbsp;
+            td 8:00-9:00
+            td 9:00-10:00
+            td 10:00-11:00
+            td 11:00-12:00
+            td 12:00-13:00
+            td 13:00-14:00
+            td 14:00-15:00
+            td 15:00-16:00
+            td 16:00-17:00
+        tr
+            td(align='center') MONDAY
+            each val in mon[0]
+                td= val
+            else
+                td= "no value"    
+        tr
+            td(align='center') TUESDAY
+            each val in mon[1]
+                td= val
+            else
+                td= "no value"
+        tr
+            td(align='center') WEDNESDAY
+            each val in mon[2]
+                td= val
+            else
+                td= "no value"    
+        tr
+            td(align='center') THURSDAY
+            each val in mon[3]
+                td= val
+            else
+                td= "no value"    
+        tr
+            td(align='center') FRIDAY
+            -var n = 0;
+            while n<9
+                if (mon[4] == undefined)
+                    td &nbsp
+                else if (mon[4][n])
+                    td= val
+                else
+                    td &nbsp
+                - n++    
+
+        tr
+            td(align='center') SATURDAY
+        tr
+            td(align='center') SUNDAY
+    button1(formaction="/menu" onclick="/menu" align='center') Back
+    button2(onclick='myFunction()' align='center') Try it
+script.
+    function myFunction() {
+        var table = document.getElementById("myTable");
+        var Mon = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi","Data","Tada","EZ1"
+        ,"BABAB", "Volvo55", "Saab55", "Ford", "Fiat", "Audi","Data","Tada","EZ2"
+        ,"BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi","Data","Tada","EZ3"
+        ,"BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi","Data","Tada","EZ4"];//moomoo insert data here555555555555555555
+        var i =0;
+        var k = 8;
+        for(var j =1 ; j<8; j++){
+            var row=table.insertRow(j);
+            for(var i=0 ; i<=8;i++){
+                var cell= row.insertCell(i);
+                cell.innerHTML=Mon[i];
+            }
+            Mon.reverse();
+            Mon.pop();
+            Mon.pop();
+            Mon.pop();
+            Mon.pop();
+            Mon.pop();
+            Mon.pop();
+            Mon.pop();
+            Mon.pop();
+            Mon.pop();
+            Mon.reverse();
+        }
+    }

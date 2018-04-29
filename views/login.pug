@@ -1,12 +1,21 @@
 head
   title  DB Registration
+
   link(rel='stylesheet' type='text/css' href='/stylesheets/style.css')
 .login-box
   img.avatar(src='/images/avatar.png')
   //- .warning-box
-  //-   p(align=center)= warning
+  .warning
+    p= warning
   h1 Login Here
-  form(action='/menu' method='GET')
-    input#sid(type='text' name='sid')
-    input#submit(type='submit' value='Send' name='submit')
+  form(action='/menu' method='POST')
+    //- input#sid(type='text' name='sid')
+    //- input#pass(type='text' name='password')
+    p Username
+    input(type='text' name='sid' placeholder='Enter Username')
+    p Password
+    input(type='password' name='pass' placeholder='Enter Password')
+    button#submit(type='submit' value='Send' name='submit') Send
+    //- input#submit(type='submit' value='Send' name='submit')
+
   //- h1= warning

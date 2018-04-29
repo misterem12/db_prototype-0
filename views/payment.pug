@@ -2,7 +2,8 @@ head
   title Payment
   link(rel='stylesheet' type='text/css' href='/stylesheets/style3.css')
 .login-box
-  p(align='center')  #{fee} 
-  p(align='center')  #{status} 
-  form(action='..' method='GET')
-    input(type='submit' name='Log Out' value='back')
+  p(align='center')  Fee : #{fee} 
+  p(align='center')  Status : #{status} 
+  form
+    button(type='submit' formaction='/menu') Return
+  //- button(href="/menu") Return

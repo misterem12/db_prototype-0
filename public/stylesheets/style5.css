@@ -6,8 +6,8 @@ body{
     font-family: sans-serif;
 }
 .login-box{
-    width: 320px;
-    height: 420px;
+    width: 1080px;
+    height: 760px;
     background: rgba(0, 0, 0, 0.5);
     color: #fff;
     top: 50%;
@@ -41,26 +41,60 @@ h1{
     font-size: 22px;
 }
 .login-box p{
-    margin: 10;
+    margin: 0;
     padding: 0;
     font-weight: bold;
 }
-.login-box button
+
+td
 {
-    position: absolute;
-    transform: translate(-50%,-50%);
+	background: rgba(0, 0, 0, 0)
+	margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 18px;
+	
+}
+.wrapper {
+    text-align: center;
+}
+
+button1
+{
+	position: fixed;
+	top: 480px;
+	left: 750px;
+	width: 20%;
     border: none;
     outline: none;
     height: 40px;
-    width: 90%;
-    bottom: 40px;
-    left: 50%;
     background: #1c8adb;
     color: #fff;
     font-size: 18px;
     border-radius: 20px;
 }
-.login-box button:hover
+button1:hover
+{
+    cursor: pointer;
+    background: #39dc79;
+    color: #000;
+}
+button2
+{
+    position: fixed;
+	top: 480px;
+	left: 500px;
+	width: 20%;
+    width: 20%;
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #1c8adb;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+button2:hover
 {
     cursor: pointer;
     background: #39dc79;
@@ -168,59 +202,20 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*Using CSS for table*/
+.demotbl {
+    border-collapse: collapse;
+    border: 1px solid #FFFFFF;
+  }
+.demotbl th{
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
+    padding:10px;
+  }
+.demotbl td{
+    border: 1px dotted #FFFFFF;
+    color: #FFFFFF;
+    padding:15px;
+    width:100px;
+  }
 
