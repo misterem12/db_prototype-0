@@ -45,11 +45,11 @@ h1{
     padding: 0;
     font-weight: bold;
 }
-input{
+button{
     width: 100%;
     margin-bottom: 60px;
 }
-input[type="submit"]
+button[type="submit"]
 {
     border: none;
     outline: none;
@@ -60,7 +60,7 @@ input[type="submit"]
     font-size: 18px;
     border-radius: 20px;
 }
-input[type="submit"]:hover
+button[type="submit"]:hover
 {
     cursor: pointer;
     background: #39dc79;

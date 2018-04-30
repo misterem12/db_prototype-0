@@ -1,7 +1,13 @@
 head
     title= title
     link(rel='stylesheet' type='text/css' href='/stylesheets/style4.css')
-    
+    script.
+        function func(cid,sec){
+            alert('parameter =', JSON.stringify('{course: ${cid} ,section: ${sec} }'))
+            return JSON.stringify('{course: ${cid} ,section: ${sec} }')
+        }
+
+
 .login-box
   h1 Course List
   .wrapper
@@ -21,21 +27,19 @@ head
             th #{course.time}
             th #{course.room} #{course.build}
             th( style='padding: 5px; vertical-align: center;') 
-                form(action='./menu')
+                form(action='./course')
                     input(type='hidden' name ='course' value=course.cid)
                     input(type='hidden' name ='section' value=course.sec)
                     button#button2(type='submit' name='act' value='a') Add
                     //- button#button2(type='submit' name='sec' value=JSON.stringify('{course:${ course.cid },section:${ course.sec }')) Add
+                    //- button#button2(type='submit' name='sec' value=func(course.cid,course.sec)) Add
+
                     
     form    
         //- button#button2(onclick='myFunction();disableMe()') Try it
         button#button1(type='submit' formaction='/menu' position='absolute') Return
 
-script.
-    function func(cid,sec){
-        alert('parameter =', JSON.stringify('{course: ${cid} ,section: ${sec} }'))
-        return JSON.stringify('{course: ${cid} ,section: ${sec} }')
-    }
+
 
 //- script.
 //-     var clicked = false;

@@ -4,9 +4,9 @@ head
 .login-box
   img#myBtn.avatar(src='/images/avatar.png')
   form
-    input(formaction='/reg' type='submit' name='submit' value='Register Course')
-    input(formaction='/course' type='submit' name='submit' value='Schedule')
-    input(formaction='/payment' type='submit' name='submit' value='Payment')
+    button(formaction='/reg' type='submit' ) View Courses
+    button(formaction='/course' type='submit') Your Courses
+    button(formaction='/payment' type='submit') Payment
     //- form(action='paymentfail.html' method='GET')
 
 // The Modal
@@ -21,9 +21,10 @@ head
       p Name : #{s.fname} #{s.lname}
       p Student ID : #{s.sid}
       p Degree : #{s.degree}
+      p Enroll Date : #{s.enroll}
     div
       form(action='..' method='GET')
-        input(type='submit' name='submit' value='Sign out')
+        button(type='submit') Sign Out
 script.
   function getQueryVariable(variable)
   {

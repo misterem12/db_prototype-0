@@ -120,8 +120,8 @@ router.use('/menu', function(req,res,next){
       function (error, results, fields) {
         if (error) return { error: error };
         else {
-          console.log(results[0])        
-          console.log(results[0]['s'])
+          // console.log(results[0])        
+          // console.log(results[0]['s'])
           res.render('menu', { s: JSON.parse(results[0]['s']) })
           console.log('complete')
         }
@@ -133,20 +133,56 @@ router.use('/menu', function(req,res,next){
 router.get('/payment', function (req, res, next) {
   console.log(req.cookies.sid)
   db.query(
-    "SELECT JSON_OBJECT('fee',Fee, 'status',Payment) as ob FROM student WHERE StudentID = ?", [req.cookies.sid],
+    "SELECT JSON_OBJECT('fee',Fee, 'status',Payment) as ob FROM student WHERE StudentID = ?", req.cookies.sid,
     function (error, results, fields) {
       if (error) return { error: error };
       else {
         // results = JSON.parse(results['pay'])
-        console.log(JSON.parse(results[0]['ob']))
+        // console.log(JSON.parse(results[0]['ob']))
 
         var result = JSON.parse(results[0]['ob'])
-        console.log(result)
+        // console.log(result)
         res.render('payment', { fee: result.fee, status: result.status })
       }
     }
   )
 });
+
+router.get('/course', function(req,res,next){
+
+  var cid = req.query.course
+  var sec = req.query.section
+  var act = req.query.act
+
+  var sid = req.cookies.sid
+
+  console.log(cid, sec, act);
+
+  if(act == undefined){
+    console.log('doing nothing')
+  }
+  else if(act == 'a'){
+    console.log("adding")
+    var value = {CourseID: cid, SectionNo: sec, Semester: '2', Year: '2018',StudentID: sid, Grade: 'NA'}
+    db.query("INSERT INTO registeredCourse SET ?",value,function (error, results, fields) {
+      if (error) return { error: error };
+      else {
+        console.log("adding complete")
+      }
+    })
+  } 
+  else if(act == 'w'){
+    console.log('withdrawing')
+    db.query("DELETE FROM registeredCourse WHERE CourseID = ? AND SectionNo = ?", [cid, sec] ,function (error, results, fields) {
+      if (error) return { error: error };
+      else {
+        // results = JSON.parse(results['pay'])
+        console.log('withdrawing complete')
+      }
+    })
+  } 
+  next()
+})
 
 router.get('/course', function (req, res, next) {
   console.log('checking registered courses')
@@ -164,7 +200,7 @@ router.get('/course', function (req, res, next) {
         courses.push(JSON.parse(results[row]['c']))
         //console.log('pushed')
       }
-      console.log("the courses is",courses)
+      // console.log("the courses is",courses)
       res.render('courselist-w', {title: 'Registered Courses', courses: courses });
     }
   })
@@ -185,7 +221,7 @@ router.get('/reg', function (req, res, next) {
         courses.push(JSON.parse(results[row]['c']))
         //console.log('pushed')
       }
-      console.log("the courses is",courses)
+      // console.log("the courses is",courses)
       res.render('courselist', {title: 'Available Courses', courses: courses });
     }
   })

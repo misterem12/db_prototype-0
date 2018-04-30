@@ -21,7 +21,7 @@ head
             th #{course.time}
             th #{course.room} #{course.build}
             th( style='padding: 5px; vertical-align: center;') 
-                form(action='./menu')
+                form(action='./course')
                     input(type='hidden' name ='course' value=course.cid)
                     input(type='hidden' name ='section' value=course.sec)
                     button#button2(type='submit' name='act' value='w') Withdraw
