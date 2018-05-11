@@ -3,12 +3,13 @@ head
     link(rel='stylesheet' type='text/css' href='/stylesheets/style4.css')
     
 .login-box
-  h1 Course List
+  h1 Registered Courses
   .wrapper
     table#myTable.demotbl(align='center')
       tr(style='font-size: 18px')
         th Course 
         th Section
+        th Credits
         th Teacher
         th Time
         th Location
@@ -17,6 +18,7 @@ head
         tr
             th #{course.cid} #{course.name}
             th #{course.sec}
+            th #{course.crd}
             th #{course.teacher}
             th #{course.time}
             th #{course.room} #{course.build}
